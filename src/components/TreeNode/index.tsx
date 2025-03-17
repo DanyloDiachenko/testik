@@ -46,23 +46,25 @@ const getNodeId = (node: TreeNodeType): string => {
 };
 
 export const TreeNode = ({ node }: TreeNodeProps) => {
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [isNodeExpanded, setIsNodeExpanded] = useState(false);
 
     const salary = useMemo(() => getSalary(node), [node]);
     const age = useMemo(() => getAge(node), [node]);
-    const nodeId = useMemo(() => getNodeId(node), [node]);
+    const _ = useMemo(() => getNodeId(node), [node]);
 
     return (
         <div className="relative ml-8">
             <div
-                onClick={() => "children" in node && setIsExpanded(!isExpanded)}
+                onClick={() =>
+                    "children" in node && setIsNodeExpanded(!isNodeExpanded)
+                }
                 className={`relative mt-2 flex items-center p-3 rounded-lg transition-all duration-200 ${
                     "children" in node
                         ? "cursor-pointer hover:bg-gray-800 hover:shadow-md"
                         : "cursor-default"
                 } bg-gray-900 text-white`}
                 role="button"
-                aria-expanded={isExpanded}
+                aria-expanded={isNodeExpanded}
                 aria-label={
                     "children" in node ? `Toggle ${node.name}` : node.name
                 }
@@ -73,7 +75,7 @@ export const TreeNode = ({ node }: TreeNodeProps) => {
                         "children" in node ? "font-bold" : ""
                     }`}
                 >
-                    {"children" in node ? (isExpanded ? "▼" : "▶") : "•"}
+                    {"children" in node ? (isNodeExpanded ? "▼" : "▶") : "•"}
                 </span>
                 <span className="font-semibold text-gray-100">{node.name}</span>
                 <span className="ml-3 text-gray-400">
@@ -84,7 +86,7 @@ export const TreeNode = ({ node }: TreeNodeProps) => {
                     Age: <span className="font-bold text-white">{age}</span>
                 </span>
             </div>
-            {isExpanded && "children" in node && node.children && (
+            {isNodeExpanded && "children" in node && node.children && (
                 <div className="relative mt-2 ml-4 before:absolute before:left-[-1rem] before:top-[-0.5rem] before:h-[calc(100%+0.5rem)] before:w-px before:bg-gray-600 before:content-['']">
                     {node.children.map((child) => (
                         <div

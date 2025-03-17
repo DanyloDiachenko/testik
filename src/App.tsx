@@ -14,7 +14,7 @@ const App = () => {
     return (
         <div className="min-h-screen bg-black text-white p-6">
             <h1 className="text-4xl font-extrabold text-center mb-8 text-gray-100">
-                Company Structure
+                Workforce Structure
             </h1>
             <div className="space-y-4">
                 {workforceData.map((city) => (
