@@ -5,10 +5,21 @@ import { City } from "./interfaces/city.interface";
 const App = () => {
     const [workforceData, setWorkforceData] = useState<City[]>([]);
 
+    const getWorkforceData = async () => {
+        try {
+            const response = await fetch("/data/workforce.json");
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            setWorkforceData(data as City[]);
+        } catch (err) {
+            console.error("Error fetching data:", err);
+        }
+    };
+
     useEffect(() => {
-        import("./data/workforce.json")
-            .then((data) => setWorkforceData(data.default))
-            .catch((err) => console.error("Error loading data:", err));
+        getWorkforceData();
     }, []);
 
     return (
