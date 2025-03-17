@@ -50,6 +50,7 @@ export const TreeNode = ({ node }: TreeNodeProps) => {
 
     const salary = useMemo(() => getSalary(node), [node]);
     const age = useMemo(() => getAge(node), [node]);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const _ = useMemo(() => getNodeId(node), [node]);
 
     return (
@@ -60,9 +61,9 @@ export const TreeNode = ({ node }: TreeNodeProps) => {
                 }
                 className={`relative mt-2 flex items-center p-3 rounded-lg transition-all duration-200 ${
                     "children" in node
-                        ? "cursor-pointer hover:bg-gray-800 hover:shadow-md"
-                        : "cursor-default"
-                } bg-gray-900 text-white`}
+                        ? "cursor-pointer hover:bg-gray-800 hover:shadow-md bg-gray-900"
+                        : "bg-gray-900 opacity-80 cursor-not-allowed"
+                } text-white`}
                 role="button"
                 aria-expanded={isNodeExpanded}
                 aria-label={
